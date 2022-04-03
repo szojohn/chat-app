@@ -37,6 +37,7 @@ serverIO.on('connection', (socket)=> {
         if (upload.includes(data.file.name)) {
             fs.unlinkSync('D:/xampp/htdocs/ChatApp/public/uploads/' + data.file.name);
         }
+        upload.push(data.file.name);
         data.file.clientDetail.nameOfImage = data.file.name; 
         data.file.clientDetail.pathName = '/uploads/' + data.file.name;
     });
