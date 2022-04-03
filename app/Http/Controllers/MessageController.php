@@ -26,6 +26,7 @@ class MessageController extends Controller
         $message->body = $request->body;
         $message->self_message = true;
         $message->name = $request->name;
+        $message->attachment = $request->attachment;
 
         $message->save();
 

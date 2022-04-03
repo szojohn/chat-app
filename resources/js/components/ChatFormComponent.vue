@@ -29,7 +29,6 @@ export default {
     return {
       body: null,
       attachment: null,
-      with_attach: null,
     };
   },
   mounted() {
@@ -44,7 +43,6 @@ export default {
     siofu.addEventListener("complete", (event) => {
       console.log(event.detail.nameOfImage);
       this.attachment = event.detail.pathName;
-      this.with_attach = true;
     });
   },
   methods: {
@@ -63,10 +61,10 @@ export default {
         .post("/message", {
           id: Date.now(),
           body: this.body,
-          attachment: this.attachment,
-          with_attach: this.with_attach,
           selfMessage: true,
           name: Laravel.user.name,
+          attachment: this.attachment,
+
         })
         .catch(() => {
           console.log("failed");
@@ -80,10 +78,9 @@ export default {
       return {
         id: Date.now(),
         body: this.body,
-        attachment: this.attachment,
-        with_attach: this.with_attach,
         selfMessage: true,
         name: Laravel.user.name,
+        attachment: this.attachment,
       };
     },
   },

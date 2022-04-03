@@ -26,6 +26,6 @@ Route::resource('messages', MessageController::class)->only([
     'store', 'index'
  ]);
 
-// Route::get('/uploads', function() {
-//     return File::get('/uploads');
-// });
+Route::get('/uploads', function() {
+    return File::get(public_path() . '/uploads');
+});

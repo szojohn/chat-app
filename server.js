@@ -11,7 +11,7 @@ const serverIO = new Server(httpServer, {
     cors:{ origin: "*" }, //CORS=Cross-Origin Resource Sharing
     methods:["GET", "POST"]
 })
-app.use(express.static(__dirname + '/uploads'));
+app.use(express.static(__dirname + '/public/uploads'));
 
 // app.get('/', (req, res) => {
 //     res.sendFile(__dirname + "/public/index.php")
@@ -19,6 +19,7 @@ app.use(express.static(__dirname + '/uploads'));
 
 serverIO.on('connection', (socket)=> {
     const users = [];
+    const upload = [];
     console.log("Connected: " + socket.id);
     users.splice(0, users.length);
     
@@ -29,9 +30,13 @@ serverIO.on('connection', (socket)=> {
 
     // upload file
     var uploader = new siofu();
-    uploader.dir = "uploads";
+    uploader.dir = "public/uploads";
     uploader.listen(socket);
     uploader.on("saved", (data) => {
+        let string = data.file.name + "-"
+        if (upload.includes(data.file.name)) {
+            fs.unlinkSync('D:/xampp/htdocs/ChatApp/public/uploads/' + data.file.name);
+        }
         data.file.clientDetail.nameOfImage = data.file.name; 
         data.file.clientDetail.pathName = '/uploads/' + data.file.name;
     });
@@ -46,6 +51,7 @@ serverIO.on('connection', (socket)=> {
     });
 
     socket.on('disconnect', (socket) => {
+        fs
         console.log('Disconnected: ' + socket.id);
     });
 });

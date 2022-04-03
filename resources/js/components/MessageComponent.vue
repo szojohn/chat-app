@@ -2,7 +2,7 @@
   <div class="message self">
     <strong class="user">{{ message.name }}</strong>
     <p id="messageBody" class="body">{{ message.body }}</p>
-    <img src="message.attachment" v-if="message.with_attach == true">
+    <img v-bind:src="message.attachment" v-if="message.attachment != null" class="responsive" object-fit="cover" object-position="bottom" width=1000px max-width="100%">
   </div>
 </template>
 
